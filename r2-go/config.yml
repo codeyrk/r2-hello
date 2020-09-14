@@ -1,0 +1,5 @@
+models:
+- app-type: fs strings
+service-type: bin_sec_str
+- app-type: ij
+service-type: bin_info

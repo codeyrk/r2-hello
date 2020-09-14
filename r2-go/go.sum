@@ -1,0 +1,7 @@
+github.com/radare/r2pipe-go v0.0.0-20171013021603-08f2b4f8ca0a h1:enQJXC+C+uCM0rpONspYMD6+Jf6eYNj4gCD4MIXkP8c=
+github.com/radare/r2pipe-go v0.0.0-20171013021603-08f2b4f8ca0a/go.mod h1:xnSZtTv/jeHkBsW7Mg6lJWB8Ke17mg3dMCMRwI16LnM=
+github.com/rainycape/dl v0.0.0-20151222075243-1b01514224a1 h1:XZlja+DeIOJeEPWAfM9M5wko0keB9qgRfuuWbry6VBQ=
+github.com/rainycape/dl v0.0.0-20151222075243-1b01514224a1/go.mod h1:lh74SQgfeEuNq74dKWzDLuVB+/ntX5c4g1oDyL4GkGg=
+gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod h1:Co6ibVJAznAaIkqp8huTwlJQCZ016jof/cbN4VW5Yz0=
+gopkg.in/yaml.v2 v2.3.0 h1:clyUAQHOM3G0M3f5vQj7LuJrETvjVot3Z5el9nffUtU=
+gopkg.in/yaml.v2 v2.3.0/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
