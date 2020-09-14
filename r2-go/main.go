@@ -17,11 +17,15 @@ var fileToWrite string
 
 func main() {
 	for true {
+
+		//iterate input directory
 		files, err := ioutil.ReadDir(*inputFolder)
 		if err != nil {
 			print("Err: %v", *inputFolder, err)
 			break
 		}
+
+		//kep trying afger every 5 secs
 		if len(files) == 0 {
 			print(*inputFolder, "  is Empty. Retrying after 5 secs.\n")
 			time.Sleep(5 * time.Second)
@@ -31,6 +35,7 @@ func main() {
 			filename := *inputFolder + "/" + file.Name()
 			processFile(filename)
 
+			//move processed file to processed folder
 			processedfile := *processedFolder + "/" + file.Name()
 			os.Rename(filename, processedfile)
 		}
