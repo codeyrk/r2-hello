@@ -6,7 +6,7 @@ Usage: TODO
 
 Functionality: TODO
 
-Dockerfile: TODO
+Dockerfile: Done
 
 #### Currently acheived scripting on OSX, using Radare2 and Golang libs. 
 - The configured commands can be run on any binary placed in input folder.
