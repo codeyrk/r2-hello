@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"io/ioutil"
+	"log"
 	"os"
 	"time"
 
+	"github.com/google/gopacket/examples/util"
 	"github.com/radare/r2pipe-go"
 )
 
@@ -15,13 +17,21 @@ var outputFolder = flag.String("o", "/Users/yogesh/Work/Data/binaries/output", "
 
 var fileToWrite string
 
+var config Config
+
 func main() {
+	defer util.Run()()
+
+	loadConfig("./config.yml")
+
+	prepareOutput()
+
 	for true {
 
 		//iterate input directory
 		files, err := ioutil.ReadDir(*inputFolder)
 		if err != nil {
-			print("Err: %v", *inputFolder, err)
+			log.Printf("Error reading directory: %s, Err: %v", *inputFolder, err)
 			break
 		}
 
@@ -33,6 +43,8 @@ func main() {
 		}
 		for _, file := range files {
 			filename := *inputFolder + "/" + file.Name()
+
+			log.Printf("Processing file: %s\n", filename)
 			processFile(filename)
 
 			//move processed file to processed folder
@@ -51,24 +63,27 @@ func processFile(filename string) {
 	}
 	defer r2p.Close()
 
-	// disasm, err := r2p.Cmd("pd 20")
-	// if err != nil {
-	// 	print("ERROR: ", err)
-	// } else {
-	// 	print(disasm, "\n")
-	// }
-
-	ret, err := r2p.Cmd("ij")
-	if err != nil {
-		print("ERROR: ", err)
-	} else {
-		print(ret, "\n")
+	for _, c := range config.R2Commands {
+		ret, err := r2p.Cmd(c.Cmd)
+		if err != nil {
+			print("ERROR: ", err)
+		} else {
+			if _, err := c.File.WriteString(ret + "\n"); err != nil {
+				log.Println("Failed to write string to file.", err)
+			}
+			print(ret, "\n")
+		}
 	}
+}
 
-	ret, err = r2p.Cmd("fs strings; fj")
-	if err != nil {
-		print("ERROR: ", err)
-	} else {
-		print(ret, "\n")
+func prepareOutput() {
+	for i, c := range config.R2Commands {
+		var err error
+		filename := *outputFolder + "/" + c.Idx + ".json"
+		config.R2Commands[i].File, err = os.OpenFile(filename,
+			os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		if err != nil {
+			log.Println("Filed to create a file. Error: ", err)
+		}
 	}
 }
